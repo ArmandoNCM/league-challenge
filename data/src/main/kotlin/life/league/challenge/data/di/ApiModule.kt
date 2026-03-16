@@ -7,7 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import life.league.challenge.data.BuildConfig
-import life.league.challenge.data.api.Api
+import life.league.challenge.data.api.AccountApi
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -30,5 +30,5 @@ object ApiModule {
 
     @Provides
     @Singleton
-    fun provideApi(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
+    fun provideApi(retrofit: Retrofit): AccountApi = retrofit.create(AccountApi::class.java)
 }

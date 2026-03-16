@@ -8,7 +8,7 @@ import retrofit2.http.Header
  * Retrofit API interface definition using coroutines. Feel free to change this implementation to
  * suit your chosen architecture pattern and concurrency tools
  */
-interface Api {
+interface AccountApi {
 
     /**
      * Basic Authorization Log-in service which returns an [ApiKeyDto] object containing an API Key
