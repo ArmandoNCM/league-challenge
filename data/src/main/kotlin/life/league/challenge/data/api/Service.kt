@@ -1,11 +1,12 @@
-package life.league.challenge.kotlin.api
+package life.league.challenge.data.api
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object Service {
 
-    private const val HOST = "https://northamerica-northeast1-league-engineering-hiring.cloudfunctions.net/mobile-challenge-api/"
+    // TODO Update to use BuildConfig field
+    private const val HOST = "localhost"
     private const val TAG = "Service"
 
     val api: Api by lazy {

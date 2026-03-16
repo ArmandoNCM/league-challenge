@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.plugin.compose")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
-    namespace = "life.league.challenge.kotlin"
+    namespace = "life.league.challenge.app"
     compileSdk = 36
 
     defaultConfig {
@@ -45,22 +45,22 @@ kotlin {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    // Domain KMP Module
+    implementation(project(":domain"))
 
-    implementation(platform("androidx.compose:compose-bom:2026.03.00"))
-    implementation("androidx.compose.ui:ui")
+    // Activity
+    implementation(libs.androidx.activity.compose)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    // Jetpack Compose
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.bundles.androidx.compose)
 
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.10.0")
-    implementation("androidx.appcompat:appcompat:1.7.1")
+    // REST API
+    implementation(libs.bundles.rest.api)
 
-    implementation("com.squareup.retrofit2:retrofit:3.0.0")
-    implementation("com.google.code.gson:gson:2.13.2")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.3.2")
-    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    // JUnit
+    testImplementation(libs.junit)
 
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.3.0")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
+    // Android Instrumented Tests
+    androidTestImplementation(libs.bundles.androidx.test)
 }
