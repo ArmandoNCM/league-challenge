@@ -1,5 +1,7 @@
 plugins {
     id("com.android.library")
+    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -33,8 +35,16 @@ android {
 }
 
 dependencies {
+    // Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.compiler)
+
+    // REST API
     implementation(libs.bundles.rest.api)
 
+    // JUnit
     testImplementation(libs.junit)
+
+    // Android Instrumented Tests
     androidTestImplementation(libs.bundles.androidx.test)
 }
