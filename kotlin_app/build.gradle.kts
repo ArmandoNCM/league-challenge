@@ -52,10 +52,8 @@ dependencies {
     // Domain KMP Module
     implementation(project(":domain"))
 
-    // Hilt
-    implementation(libs.hilt.android)
-    implementation(libs.hilt.navigation.compose)
-    ksp(libs.hilt.compiler)
+    // Material
+    implementation(libs.material)
 
     // Activity
     implementation(libs.androidx.activity.compose)
@@ -63,6 +61,11 @@ dependencies {
     // Jetpack Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.compose)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.navigation.compose)
+    ksp(libs.hilt.compiler)
 
     // JUnit
     testImplementation(libs.junit)

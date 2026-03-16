@@ -4,6 +4,7 @@ kotlin = "2.3.10"
 androidxComposeBom = "2026.03.00"
 androidxActivityCompose = "1.13.0"
 hiltNavigationCompose = "1.3.0"
+material = "1.13.0"
 
 retrofit = "3.0.0"
 gson = "2.13.2"
@@ -26,6 +27,8 @@ hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 [libraries]
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "androidxActivityCompose" }
 
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "androidxComposeBom" }
