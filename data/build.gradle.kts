@@ -1,7 +1,17 @@
+import java.util.Properties
+
 plugins {
     id("com.android.library")
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+}
+
+val baseUrl = Properties().run {
+    val localPropsFile = rootProject.file("local.properties")
+    if (localPropsFile.exists()) {
+        localPropsFile.reader().use { load(it) }
+    }
+    getProperty("BASE_URL")?.takeIf { it.isNotBlank() } ?: "localhost"
 }
 
 android {
@@ -10,9 +20,10 @@ android {
 
     defaultConfig {
         minSdk = 24
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        // Base URL for REST API
+        buildConfigField("String", "BASE_URL", "\"$baseUrl\"")
     }
 
     buildTypes {
