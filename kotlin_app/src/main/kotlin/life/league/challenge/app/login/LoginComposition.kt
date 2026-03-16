@@ -46,10 +46,10 @@ import life.league.challenge.app.ui.theme.LeagueCodeChallengeTheme
 
 @Composable
 fun LoginComposition(
-    onLoginSuccess: () -> Unit = {},
-    viewModel: MainViewModel = hiltViewModel()
+    onLoginSuccess: () -> Unit = {}, viewModel: MainViewModel = hiltViewModel()
 ) {
     var password by remember { mutableStateOf("") }
+    var validationErrorMessage by remember { mutableStateOf<String?>(null) }
     val loginState by viewModel.loginState.collectAsState()
 
     LaunchedEffect(loginState) {
@@ -60,6 +60,9 @@ fun LoginComposition(
     }
 
     val screenPadding = dimensionResource(R.dimen.login_screen_padding)
+    val validationEmptyFields = stringResource(R.string.login_validation_empty_fields)
+    val validationEmptyUsername = stringResource(R.string.login_validation_empty_username)
+    val validationEmptyPassword = stringResource(R.string.login_validation_empty_password)
     val formWidthFraction = integerResource(R.integer.login_form_width_percent) / 100f
     val gradientPrimaryAlpha = integerResource(R.integer.login_gradient_primary_alpha) / 100f
     val gradientTertiaryAlpha = integerResource(R.integer.login_gradient_tertiary_alpha) / 100f
@@ -92,14 +95,32 @@ fun LoginComposition(
 
             LoginForm(
                 username = viewModel.username,
-                onUsernameChange = viewModel::onUsernameChange,
+                onUsernameChange = {
+                    viewModel.onUsernameChange(it)
+                    validationErrorMessage = null
+                },
                 password = password,
-                onPasswordChange = { password = it },
+                onPasswordChange = {
+                    password = it
+                    validationErrorMessage = null
+                },
                 onLoginClick = {
-                    viewModel.login(password)
-                    password = ""
+                    val usernameBlank = viewModel.username.isBlank()
+                    val passwordBlank = password.isBlank()
+                    if (usernameBlank || passwordBlank) {
+                        validationErrorMessage = when {
+                            usernameBlank && passwordBlank -> validationEmptyFields
+                            usernameBlank -> validationEmptyUsername
+                            else -> validationEmptyPassword
+                        }
+                    } else {
+                        validationErrorMessage = null
+                        viewModel.login(password)
+                        password = ""
+                    }
                 },
                 loginState = loginState,
+                validationErrorMessage = validationErrorMessage,
                 modifier = Modifier.fillMaxWidth(formWidthFraction)
             )
         }
@@ -129,14 +150,18 @@ fun LoginForm(
     onPasswordChange: (String) -> Unit,
     onLoginClick: () -> Unit,
     loginState: LoginUiState,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    validationErrorMessage: String? = null
 ) {
     val fieldShape = RoundedCornerShape(dimensionResource(R.dimen.login_field_corner_radius))
     val fieldFocusedAlpha = integerResource(R.integer.login_field_focused_container_alpha) / 100f
-    val fieldUnfocusedAlpha = integerResource(R.integer.login_field_unfocused_container_alpha) / 100f
+    val fieldUnfocusedAlpha =
+        integerResource(R.integer.login_field_unfocused_container_alpha) / 100f
+    val displayError = validationErrorMessage ?: (loginState as? LoginUiState.Error)?.message
     val errorAlpha by animateFloatAsState(
-        targetValue = if (loginState is LoginUiState.Error) 1f else 0f,
-        animationSpec = tween(integerResource(R.integer.login_error_animation_duration_ms)), label = "errorAlpha"
+        targetValue = if (displayError != null) 1f else 0f,
+        animationSpec = tween(integerResource(R.integer.login_error_animation_duration_ms)),
+        label = "errorAlpha"
     )
 
     Surface(
@@ -167,14 +192,14 @@ fun LoginForm(
             )
             Spacer(modifier = Modifier.height(dimensionResource(R.dimen.login_section_spacer)))
 
-            // Error message
-            if (loginState is LoginUiState.Error) {
+            // Error message (validation or login failure)
+            if (displayError != null) {
                 Surface(
                     shape = RoundedCornerShape(dimensionResource(R.dimen.login_error_chip_corner_radius)),
                     color = MaterialTheme.colorScheme.errorContainer.copy(alpha = errorAlpha)
                 ) {
                     Text(
-                        text = loginState.message,
+                        text = displayError,
                         color = MaterialTheme.colorScheme.onErrorContainer,
                         style = MaterialTheme.typography.bodyMedium,
                         modifier = Modifier
@@ -251,8 +276,7 @@ fun LoginForm(
                         stringResource(R.string.login_button_loading)
                     } else {
                         stringResource(R.string.login_button)
-                    },
-                    style = MaterialTheme.typography.titleMedium
+                    }, style = MaterialTheme.typography.titleMedium
                 )
             }
         }
@@ -266,8 +290,7 @@ private fun LoginFormIdlePreview() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
-            contentAlignment = Alignment.Center
+                .padding(24.dp), contentAlignment = Alignment.Center
         ) {
             LoginForm(
                 username = "",
@@ -276,6 +299,7 @@ private fun LoginFormIdlePreview() {
                 onPasswordChange = {},
                 onLoginClick = {},
                 loginState = LoginUiState.Idle,
+                validationErrorMessage = null,
                 modifier = Modifier.fillMaxWidth(0.85f)
             )
         }

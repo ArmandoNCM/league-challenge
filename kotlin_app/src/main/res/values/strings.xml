@@ -10,6 +10,11 @@
     <string name="login_button">Log in</string>
     <string name="login_button_loading">Logging in…</string>
 
+    <!-- Login validation -->
+    <string name="login_validation_empty_username">Please enter your username</string>
+    <string name="login_validation_empty_password">Please enter your password</string>
+    <string name="login_validation_empty_fields">Please enter your username and password</string>
+
     <!-- Login error messages -->
     <string name="login_error_unauthorized">Invalid username or password</string>
     <string name="login_error_network">Network error. Check your connection.</string>
