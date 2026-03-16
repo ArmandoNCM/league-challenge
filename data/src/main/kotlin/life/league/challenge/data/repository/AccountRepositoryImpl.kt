@@ -11,6 +11,9 @@ class AccountRepositoryImpl @Inject constructor(
     private val accountApi: AccountApi
 ) : AccountRepository {
 
-    override suspend fun signIn(username: String, password: String): APIKey =
-        accountApi.login(Credentials.basic(username, password)).toDomainApiKey()
+    override suspend fun signIn(username: String, password: CharArray): APIKey {
+        val credential = Credentials.basic(username, String(password))
+        password.fill('\u0000')
+        return accountApi.login(credential).toDomainApiKey()
+    }
 }
