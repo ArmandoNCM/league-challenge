@@ -28,7 +28,7 @@ class MainViewModel @Inject constructor(
             try {
                 loginUseCase(username, charArray)
             } finally {
-                charArray.fill(' ')
+                charArray.fill('\u0000')
             }
         }
     }
