@@ -47,6 +47,8 @@ kotlin {
 }
 
 dependencies {
+    // Data module
+    implementation(project(":data"))
     // Domain KMP Module
     implementation(project(":domain"))
 
@@ -60,9 +62,6 @@ dependencies {
     // Jetpack Compose
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.androidx.compose)
-
-    // REST API
-    implementation(libs.bundles.rest.api)
 
     // JUnit
     testImplementation(libs.junit)
