@@ -1,7 +1,6 @@
 package life.league.challenge.data.api
 
-import android.util.Base64
-import life.league.challenge.data.model.Account
+import life.league.challenge.data.model.ApiKeyDto
 import retrofit2.http.GET
 import retrofit2.http.Header
 
@@ -11,13 +10,11 @@ import retrofit2.http.Header
  */
 interface Api {
 
+    /**
+     * Basic Authorization Log-in service which returns an [ApiKeyDto] object containing an API Key
+     * for subsequent REST API calls
+     */
     @GET("login")
-    suspend fun login(@Header("Authorization") credentials: String?): Account
+    suspend fun login(@Header("Authorization") credentials: String?): ApiKeyDto
 
 }
-
-/**
- * Overloaded Login API extension function to handle authorization header encoding
- */
-suspend fun Api.login(username: String, password: String)
-        = login("Basic " + Base64.encodeToString("$username:$password".toByteArray(), Base64.NO_WRAP))
