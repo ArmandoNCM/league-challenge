@@ -3,6 +3,8 @@
     <string name="welcome_message">You\'ve signed in successfully!</string>
 
     <!-- Login screen -->
+    <string name="login_title">Welcome back</string>
+    <string name="login_subtitle">Sign in to continue</string>
     <string name="login_username_label">Username</string>
     <string name="login_password_label">Password</string>
     <string name="login_button">Log in</string>

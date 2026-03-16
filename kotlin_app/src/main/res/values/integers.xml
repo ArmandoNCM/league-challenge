@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Login form width as percentage (0-100) -->
+    <integer name="login_form_width_percent">92</integer>
+    <!-- Gradient and overlay alpha (0-100) -->
+    <integer name="login_gradient_primary_alpha">40</integer>
+    <integer name="login_gradient_tertiary_alpha">25</integer>
+    <integer name="login_card_surface_alpha">95</integer>
+    <integer name="login_loading_overlay_alpha">60</integer>
+    <!-- Text field container alpha (0-100) -->
+    <integer name="login_field_focused_container_alpha">40</integer>
+    <integer name="login_field_unfocused_container_alpha">25</integer>
+    <!-- Animation -->
+    <integer name="login_error_animation_duration_ms">200</integer>
+</resources>
