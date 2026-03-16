@@ -6,6 +6,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import life.league.challenge.app.login.LoginComposition
 import life.league.challenge.app.navigation.Login
+import life.league.challenge.app.navigation.Welcome
+import life.league.challenge.app.welcome.WelcomeComposition
 
 @Composable
 fun MainComposition() {
@@ -13,11 +15,13 @@ fun MainComposition() {
     val navController = rememberNavController()
 
     NavHost(
-        navController = navController,
-        startDestination = Login
+        navController = navController, startDestination = Login
     ) {
         composable<Login> {
-            LoginComposition()
+            LoginComposition(onLoginSuccess = { navController.navigate(Welcome) })
+        }
+        composable<Welcome> {
+            WelcomeComposition()
         }
     }
 }
