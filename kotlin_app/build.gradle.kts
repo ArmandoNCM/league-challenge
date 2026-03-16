@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -57,6 +58,9 @@ dependencies {
 
     // Activity
     implementation(libs.androidx.activity.compose)
+
+    // Navigation
+    implementation(libs.bundles.androidx.navigation)
 
     // Jetpack Compose
     implementation(platform(libs.androidx.compose.bom))
