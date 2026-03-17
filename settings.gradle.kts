@@ -15,6 +15,6 @@ dependencyResolutionManagement {
     }
 }
 
-include(":kotlin_app")
+include(":app")
 include(":data")
 includeBuild("domain")

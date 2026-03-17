@@ -43,6 +43,11 @@ android {
     buildFeatures {
         buildConfig = true
     }
+
+    androidResources {
+        @Suppress("UnstableApiUsage")
+        testFixtures.enable = true
+    }
 }
 
 dependencies {
@@ -59,6 +64,8 @@ dependencies {
     // JUnit
     testImplementation(libs.junit)
 
-    // Android Instrumented Tests
-    androidTestImplementation(libs.bundles.androidx.test)
+    // Test Fixtures
+    testFixturesImplementation(project(":domain"))
+    testFixturesImplementation(libs.hilt.android)
+    kspTestFixtures(libs.hilt.compiler)
 }
