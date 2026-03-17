@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import life.league.challenge.data.di.Production
 import life.league.challenge.domain.repository.AccountRepository
 import life.league.challenge.domain.usecase.login.LoginUseCase
 import javax.inject.Singleton
@@ -15,6 +14,5 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideLoginUseCase(@Production repository: AccountRepository): LoginUseCase =
-        LoginUseCase(repository)
+    fun provideLoginUseCase(repository: AccountRepository): LoginUseCase = LoginUseCase(repository)
 }

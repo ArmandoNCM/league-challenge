@@ -14,7 +14,6 @@ abstract class TestRepositoryModule {
 
     @Binds
     @Singleton
-    @Testing
     abstract fun provideAccountRepository(impl: MockAccountRepositoryImpl): AccountRepository
 
 }

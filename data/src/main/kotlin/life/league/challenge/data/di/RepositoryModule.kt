@@ -14,6 +14,5 @@ abstract class RepositoryModule {
 
     @Binds
     @Singleton
-    @Production
     abstract fun bindAccountRepository(impl: AccountRepositoryImpl): AccountRepository
 }
