@@ -85,12 +85,15 @@ dependencies {
 
     // Android Instrumented Tests
     androidTestImplementation(libs.bundles.androidx.test)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    kspAndroidTest(libs.hilt.compiler)
+    androidTestImplementation(testFixtures(project(":data")))
+    androidTestImplementation(testFixtures(project(":app")))
 
     // Test Fixtures Dependencies
+    testFixturesImplementation(project(":data"))
     testFixturesImplementation(project(":domain"))
     testFixturesImplementation(testFixtures(project(":data")))
+    testFixturesImplementation(platform(libs.androidx.compose.bom))
+    testFixturesImplementation(libs.androidx.compose.ui)
     testFixturesImplementation(libs.hilt.android)
     kspTestFixtures(libs.hilt.compiler)
 }

@@ -1,8 +1,8 @@
 package life.league.challenge.data.repository
 
 import kotlinx.coroutines.delay
+import life.league.challenge.domain.model.APIKey
 import life.league.challenge.domain.repository.AccountRepository
-import life.league.challenge.domain.usecase.login.LoginError
 import life.league.challenge.domain.usecase.login.LoginResult
 import javax.inject.Inject
 
@@ -12,11 +12,9 @@ import javax.inject.Inject
  */
 class MockAccountRepositoryImpl @Inject constructor() : AccountRepository {
 
-    var result: LoginResult = LoginResult.Failure(LoginError.Unauthorized)
-        set(value) { field = value }
+    val result: LoginResult = LoginResult.Success(APIKey("test-key"))
 
-    var delayMs: Long = 0L
-        set(value) { field = value }
+    var delayMs: Long = 50L
 
     override suspend fun signIn(username: String, password: CharArray): LoginResult {
         if (delayMs > 0) delay(delayMs)

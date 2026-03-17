@@ -37,6 +37,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -216,7 +217,7 @@ fun LoginForm(
                 value = username,
                 onValueChange = onUsernameChange,
                 label = { Text(stringResource(R.string.login_username_label)) },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().testTag("login_username"),
                 singleLine = true,
                 shape = fieldShape,
                 keyboardOptions = KeyboardOptions(capitalization = KeyboardCapitalization.None),
@@ -236,7 +237,7 @@ fun LoginForm(
                 value = password,
                 onValueChange = onPasswordChange,
                 label = { Text(stringResource(R.string.login_password_label)) },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().testTag("login_password"),
                 singleLine = true,
                 shape = fieldShape,
                 visualTransformation = PasswordVisualTransformation(),
@@ -256,7 +257,8 @@ fun LoginForm(
                 onClick = onLoginClick,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimensionResource(R.dimen.login_button_height)),
+                    .height(dimensionResource(R.dimen.login_button_height))
+                    .testTag("login_button"),
                 enabled = loginState !is LoginUiState.Loading,
                 shape = RoundedCornerShape(dimensionResource(R.dimen.login_button_corner_radius)),
                 elevation = ButtonDefaults.buttonElevation(

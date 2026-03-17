@@ -1,7 +1,7 @@
 import java.util.Properties
 
 plugins {
-    id("com.android.library")
+    alias(libs.plugins.android.library)
     alias(libs.plugins.hilt)
     alias(libs.plugins.ksp)
 }

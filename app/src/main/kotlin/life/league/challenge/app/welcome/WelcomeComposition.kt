@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import life.league.challenge.app.R
 
@@ -20,7 +21,8 @@ fun WelcomeComposition() {
         ) {
             Text(
                 text = stringResource(id = R.string.welcome_message),
-                style = MaterialTheme.typography.headlineMedium
+                style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.testTag("welcome_message")
             )
         }
     }
